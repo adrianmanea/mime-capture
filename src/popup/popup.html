@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mime Capture</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      width: 256px;
+      padding: 16px;
+    }
+    h1 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: #111827; }
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #059669;
+    }
+    .status .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+    p { font-size: 12px; color: #6b7280; margin-bottom: 16px; }
+    button {
+      width: 100%;
+      padding: 8px 16px;
+      background: #0099ff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover { background: #0077cc; }
+  </style>
+</head>
+<body>
+  <h1>Mime Capture</h1>
+  <div class="status"><span class="dot"></span> Active</div>
+  <p>Hover over elements on any webpage to select them.</p>
+  <button id="close-btn">Close Popup</button>
+
+  <script>
+    document.getElementById('close-btn').addEventListener('click', async () => {
+      const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+      if (tab) window.close();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Mime Capture",
+  "short_name": "Mime Capture",
+  "version": "1.0.0",
+  "homepage_url": "https://hiadrian.dev",
+  "description": "Select any UI component on a webpage, capture its HTML/CSS/screenshot, and export as an AI-ready prompt.",
+  "action": {
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background/service-worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "js": ["src/content/loader.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "permissions": ["activeTab", "storage"],
+  "host_permissions": ["<all_urls>"],
+  "web_accessible_resources": [
+    {
+      "resources": ["src/*", "styles/*", "icons/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

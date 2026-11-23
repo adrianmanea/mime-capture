@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head><title>Icon Generator</title></head>
+<body>
+<p>Open this file in a browser, right-click each canvas, and "Save image as" to create the icon PNGs.</p>
+<div id="canvases"></div>
+<script>
+const sizes = [16, 32, 48, 128];
+const container = document.getElementById('canvases');
+
+for (const size of sizes) {
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+
+  // Background rounded rect
+  const r = size * 0.2;
+  ctx.beginPath();
+  ctx.roundRect(0, 0, size, size, r);
+  ctx.fillStyle = '#0099ff';
+  ctx.fill();
+
+  // Scissors/capture icon
+  ctx.strokeStyle = 'white';
+  ctx.lineWidth = Math.max(1.5, size * 0.08);
+  ctx.lineCap = 'round';
+
+  // Diagonal line
+  const m = size * 0.25;
+  const n = size * 0.75;
+  ctx.beginPath();
+  ctx.moveTo(m, m);
+  ctx.lineTo(n, n);
+  ctx.stroke();
+
+  // Corner bracket top-left
+  ctx.beginPath();
+  ctx.moveTo(m, size * 0.45);
+  ctx.lineTo(m, m);
+  ctx.lineTo(size * 0.45, m);
+  ctx.stroke();
+
+  // Corner bracket bottom-right
+  ctx.beginPath();
+  ctx.moveTo(n, size * 0.55);
+  ctx.lineTo(n, n);
+  ctx.lineTo(size * 0.55, n);
+  ctx.stroke();
+
+  const label = document.createElement('div');
+  label.innerHTML = `<p>icon-${size}.png</p>`;
+  label.appendChild(canvas);
+  container.appendChild(label);
+
+  // Auto-download
+  const link = document.createElement('a');
+  link.download = `icon-${size}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+</script>
+</body>
+</html>
